@@ -1,0 +1,33 @@
+TEMPLATE = app
+CONFIG += console c++17
+CONFIG -= app_bundle
+CONFIG -= qt
+
+INCLUDEPATH += ./gtest/include \
+            += ./util/         \
+
+CURRENT_PATH = $$PWD
+
+LIBS += -L $$CURRENT_PATH/gtest/lib \
+
+LIBS += -lgtest \
+        -lgmock
+
+
+
+SOURCES += \
+        LeetCode201_250/SubArray_209.cpp \
+        huawei_od/CpuAllocate.cpp \
+        huawei_od/MiddleListNode.cpp \
+        huawei_od/NucleicAcidTesters.cpp \
+        huawei_od/StringReRangeAndReOrder.cpp \
+        huawei_od/logsystem.cpp \
+        huawei_od/perfectPosition.cpp \
+        huawei_od/schoolPlace.cpp \
+        huawei_od/task_mixed_scheduling.cpp \
+        huawei_od/wordReverse.cpp \
+        main.cpp \
+        util/stringUtil.cpp
+
+HEADERS += \
+    util/stringUtil.h
