@@ -1,0 +1,2 @@
+# LeetCodeAndNiuKePractice
+该项目主要是LeetCode和牛客,以及一些刷题真题的代码(个人实现或者网上寻找答案,不一定是正确答案)
