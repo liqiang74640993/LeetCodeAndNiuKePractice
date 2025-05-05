@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <map>
+#include <climits>
 #include "stringUtil.h"
 
 using namespace std;
@@ -26,19 +27,57 @@ using namespace std;
 //输出：0
 
 //提示：
-//    1 <= target <= 109
-//    1 <= nums.length <= 105
-//    1 <= nums[i] <= 104
+//    1 <= target <= 10de 9次方
+//    1 <= nums.length <= 10的5次方
+//    1 <= nums[i] <= 10 de 4次方
 
 //进阶：
 //    如果你已经实现 O(n) 时间复杂度的解法, 请尝试设计一个 O(n log(n)) 时间复杂度的解法。
 
 
-int minSubArrayLen(int target, vector<int>& nums)
-{
-   int result = 0;
 
-   return result;
+static int minSubArrayLen(int target, vector<int>& nums)
+{
+    //暴力法,超出时间限制 ,letcode中没有通过,
+//   int length = nums.size();
+//   int sum = 0;
+//   int smallLengthArray = 100000;
+//   bool bFlag = false;
+//   //form the first element to the last element
+//   for(int i = 0; i < length; ++i){
+//       sum = 0;
+//       for(int j = i; j < length; j++){
+//           sum += nums[j];
+//           if(sum >= target){
+//               if((j - i + 1) < smallLengthArray){
+//                   smallLengthArray = j - i + 1;
+//                   bFlag = true;
+//               }
+//               break;
+//           }
+//       }
+//   }
+//   if(bFlag)
+//       return smallLengthArray;
+//   return 0; //not exist;
+
+    //滑动窗口方法
+   int i = 0; //left
+   int length = nums.size();
+   int result = INT32_MAX;
+   int min = 0;
+   int sum = 0;
+   for(int j = 0; j < length; ++j){
+       sum += nums[j];
+       while(sum >= target){
+           min = j - i + 1;
+           if(min < result){
+               result = min;
+           }
+           sum -= nums[i++];
+       }
+   }
+   return result == INT32_MAX ? 0 : result;
 }
 
 TEST(LeetCode, SubArray_209)
