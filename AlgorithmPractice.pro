@@ -20,6 +20,8 @@ SOURCES += \
         LeetCode500_550/500_510.cpp \
         LeetCode_ByFunctionType/Array1.cpp \
         LeetCode_ByFunctionType/DP1.cpp \
+        LeetCode_ByFunctionType/Hash.cpp \
+        LeetCode_ByFunctionType/Linkedlist.cpp \
         LeetCode_ByFunctionType/SlidingWindow.cpp \
         huawei_od/CpuAllocate.cpp \
         huawei_od/MiddleListNode.cpp \
@@ -36,4 +38,5 @@ SOURCES += \
         util/stringUtil.cpp
 
 HEADERS += \
+    LeetCode_ByFunctionType/Linkedlist.h \
     util/stringUtil.h
