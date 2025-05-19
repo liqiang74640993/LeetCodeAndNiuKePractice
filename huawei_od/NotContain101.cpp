@@ -29,6 +29,7 @@
 
 using namespace std;
 
+//return: binary bit count
 int tenToBinary(int num, string &s)
 {
     int count  = 0;
@@ -44,30 +45,77 @@ int tenToBinary(int num, string &s)
         }
         num = num / 2;
     }
-    if(num == 1){
+    if(num == 1){//最高位为1
         count++;
         s.insert(0,"1");
     }
     return count;
 }
 
+#include <cmath>
+
 TEST(HuaWeiOd, NotContain101)
 {
     int l =0,r = 0;
     std::cin >> l >> r;
-    if(0 < r && r < 10){
-        std::cout << 1 << std::endl;
+    if(r < 5){
+        std::cout << r -l + 1 << std::endl;
+        return;
+    }
+    if(r == 5){
+        std::cout << r -l << std::endl;
         return;
     }
     string l1,r1;
-    int lowCount = tenToBinary(l,l1);
+    int lowCount = tenToBinary(l-1,l1);
     int highCount = tenToBinary(r,r1);
-    r1 = "1000101";
-    if(highCount >3){
-
-    }else{
-
+    string left3 = l1.substr(0,3);
+    string right3 = r1.substr(0,3);
+    string leftlow;
+    if(lowCount - 3 > 0){
+        leftlow  = l1.substr(3,lowCount - 3);
     }
-    int a = 0;
-    std::cout << a << std::endl;
+    string rightlow = r1.substr(3,highCount -3);
+    if(left3 != "101" && left3 != "111" && left3 != "110"){
+        lowCount--;
+    }
+    if(right3 != "101" && right3 != "111" && right3 != "110"){
+        highCount--;
+    }
+
+    int contain101 = 0;
+    //计算右边数字除最高位所有低位的所有包含101的数字
+    for(int i = 3; i < highCount; ++i){
+       for(int j = 0; j <= i - 3; ++j){
+           contain101 += pow(2,j);
+       }
+    }
+    //计算右边数字最高位为101的情况
+    contain101++; //00
+    int sizer = rightlow.size();
+    for(int i = 0; i < sizer; ++i){
+        if(rightlow[i] == '1'){
+            contain101 += pow(2,sizer-i-1);
+        }
+    }
+    if(lowCount >= 3){ //要判断左边的数是否超过5
+        for(int i = 3; i < lowCount; ++i){
+            for(int j = 0; j <= i - 3; ++j){
+                contain101 -= pow(2,j);
+            }
+        }
+        if( std::atoi(leftlow.c_str()) == 0){
+            contain101--;
+        }else{
+            int sizel = leftlow.size();
+            for(int i = 0; i < sizel; ++i){
+                if(leftlow[i] == '1'){
+                    contain101 -= pow(2,sizel-i-1);
+                }
+            }
+        }
+    }
+    int nums = r - l + 1;
+    nums -= contain101;
+    std::cout <<  nums << std::endl;
 }
